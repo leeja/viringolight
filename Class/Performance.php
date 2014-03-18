@@ -19,8 +19,7 @@ Class Class_Performance
 	/**
 	 * Almacena el tiempo cuando inicia la web
 	 */
-	private static $_startLoad;
-    private static $_subTest;
+    private static $_startLoad;
     private static $_micro;
     private static $_memory;
     private static $_controller;
@@ -78,7 +77,7 @@ Class Class_Performance
 
                 self::capture('Fin');
                 $time = number_format( (self::$_micro - self::$_startLoad) , 10);
-                echo ' performance '.$time.' seg '.self::$_memory.' mb in Controller '.self::$_controller.' and action '.self::$_action;
+                echo '<br/>performance '.$time.' seg '.self::$_memory.' mb in Controller '.self::$_controller.' and action '.self::$_action;
                
         }
 	}
