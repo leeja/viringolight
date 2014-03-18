@@ -113,7 +113,7 @@ class Class_App
      */
     public static function isUtf8($string)
     {
-       return mb_detect_encoding($string, 'UTF-8', true);   
+        return mb_check_encoding($string, 'UTF-8');   
     }
 
 

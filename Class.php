@@ -1,7 +1,11 @@
 <?PHP
+/**
+ * @package viringolight
+ * @author Jose Lee <jlee@jasoftsolutions.com>
+ * @copyright 2014 - JASoft Solutions E.I.R.L.
+ */
 
 define( 'VERSION' , 'viringolight');
-
 
 /**
 * Manejo de errores
