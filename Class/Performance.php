@@ -22,6 +22,7 @@ Class Class_Performance
     private static $_startLoad;
     private static $_micro;
     private static $_memory;
+    private static $_startMemory;
     private static $_controller;
     private static $_action;
 	
@@ -31,6 +32,7 @@ Class Class_Performance
        $performance = Class_Config::get('performance');
 	   if($performance == 1){
             self::$_startLoad = self::_getMicroTime();
+            self::$_startMemory = round(memory_get_usage() / 1024,1);
         }
     }
 
@@ -56,7 +58,7 @@ Class Class_Performance
         $performance = Class_Config::get('performance');
 	    if($performance == 1){ 
             self::$_micro = self::_getMicroTime();
-            self::$_memory = round(memory_get_usage() / 1024,1);
+            self::$_memory = round(memory_get_usage() / 1024,1) - self::$_startMemory;
             
             self::$_controller = Class_FrontController::getController();
             self::$_action = Class_FrontController::getAction();

@@ -26,8 +26,8 @@ class Class_Json
     public static function encodeArray( $array, $utf8 = true, $print = true)
     {
        if($utf8 == true)
-           $return = json_encode(Class_App::utf8Array($array));
-       else 
+               $return = json_encode(Class_App::utf8Array($array));
+       else
            $return = json_encode($array);
         
 	if($print == true)

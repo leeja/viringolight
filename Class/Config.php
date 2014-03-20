@@ -31,7 +31,6 @@ class Class_Config
      if(!self::exists($key)) {
            Class_Error::messageError('Key "'. $key .'" Not Found in array $config of Config.inc.php');
       }
-         
       global $config;
       
       return $config[$key];
@@ -45,15 +44,15 @@ class Class_Config
     * @return string
     * @static
     */
-    public static function exists ($key)
- 	{
+   public static function exists ($key)
+   {
 	   if (!empty($key)) {
-            global $config;
+               global $config;
 	     if(!isset($config[$key])) return false;
 	     else return true;
          }	
-		return false;
-	}
+	return false;
+  }
 
 
     /**

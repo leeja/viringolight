@@ -34,7 +34,7 @@ class Class_Message
       }
          
         global $messages;
-
+      
         if ($htmlentities)
                return htmlentities($messages[$key], ENT_QUOTES, ini_get('default_charset'));
         else
@@ -52,9 +52,9 @@ class Class_Message
     */
     public static function exists ($key)
  	{
-	   if (!empty($key)) {
+	   if (!empty($key)) {           
             global $messages;
-	     if(!isset($messages[$key])) return false;
+               if(!isset($messages[$key])) return false;
 	     else return true;
          }	
 		return false;
