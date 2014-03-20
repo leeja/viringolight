@@ -17,26 +17,7 @@
 class Class_App
 {
 
-    /**
-     * Decodifica la cadena ($string) de uf8. 
-	 *
-	 * <b>[algoritmo]</b><br>
-	 * <i>Condición:</i> Verifica si la cadena ($string), no esta vacia y esta codificada.<br>
-     * <i>Verdadero:</i> Retorna la cadena ($string) decodificada.<br>
-     * <i>False:</i> Retorna la cadena ($string).
-     * 
-     * @param string $string (cadena)
-     * @return string
-     * @static
-     */
-    public static function aUtf8($string)
-    {
-
-        if (self::isUtf8($string) and !empty($string) and gettype($string) == 'string')
-            $string = utf8_decode($string);
-        
-        return $string;
-    }
+   
 
 
     /**
@@ -116,6 +97,25 @@ class Class_App
         return mb_check_encoding($string, 'UTF-8');   
     }
 
+     /**
+     * Decodifica la cadena ($string) de uf8. 
+	 *
+	 * <b>[algoritmo]</b><br>
+	 * <i>Condición:</i> Verifica si la cadena ($string), no esta vacia y esta codificada.<br>
+     * <i>Verdadero:</i> Retorna la cadena ($string) decodificada.<br>
+     * <i>False:</i> Retorna la cadena ($string).
+     * 
+     * @param string $string (cadena)
+     * @return string
+     * @static
+     */
+    public static function aUtf8($string)
+    {
+
+        if (gettype($string) == 'string' && self::isUtf8($string) && !empty($string))
+            $string = utf8_decode($string);
+        return $string;
+    }
 
     /**
      * Codifica la cadena ($string) con uf8. Si la cadena  esta codificada, la función no la codifica. 
@@ -126,7 +126,7 @@ class Class_App
      */
     public static function utf8($string)
     {
-        if(!empty($string) and !self::isUtf8($string) and gettype($string) == 'string')
+        if(gettype($string) == 'string' && isset($string) && !self::isUtf8($string))
                 $string = utf8_encode($string);
         return $string;
     }
@@ -164,17 +164,24 @@ class Class_App
      */
     private static function _walk( $input, $utf8 = true)
     {
-	if(is_object($input)){
-            $input = $input->getValue();
-        }
-
+	
         if(!is_array($input)) {
-            if($utf8 == true) return Class_App::utf8($input);
-            return Class_App::aUtf8($input);
+            if(gettype($input) == 'string'){
+                 if($utf8 == true ) 
+                     return self::utf8($input);
+                 return self::aUtf8($input);
+          }
+            return $input;
         }
+        
 	$output = array();
 	foreach($input as $key => $value){
-		$output[$key] = self::_walk($value, $utf8);
+            if($utf8 == true && gettype($key) == 'string')
+                $output[self::utf8($key)] = self::_walk($value, $utf8);
+            elseif($utf8 == false && gettype($key) == 'string')
+                $output[self::autf8($key)] = self::_walk($value, $utf8);
+            else 
+                $output[$key] = self::_walk($value, $utf8);
 	}
 	return $output;
     }
