@@ -72,6 +72,7 @@ public function __construct()
      else{
         $request = $_SERVER['REQUEST_URI'];
         $request = substr($request, strlen(NAME_SITE) + 1, strlen($request));
+        //$request = substr($request, 1, strlen($request));
             
 		
         $splits = explode('/', trim($request, '/'));

@@ -26,22 +26,25 @@ Class Class_Performance
     private static $_controller;
     private static $_action;
 	
-        
+   /**
+     * Captura inicial del tiempo y consumo de memoria
+     * 
+     */     
     public static function begin()
     {
        $performance = Class_Config::get('performance');
 	   if($performance == 1){
-            self::$_startLoad = self::_getMicroTime();
+            self::$_startLoad = self::getMicroTime();
             self::$_startMemory = round(memory_get_usage() / 1024,1);
         }
     }
 
-	/**
-	 * Obtiene el tiempo
-	 * 
-	 * @return string
-	 */
-	private static function _getMicroTime()
+    /**
+     * Obtiene el tiempo
+     * 
+     * @return string
+     */
+	public static function getMicroTime()
 	{
 		$micro = microtime();
 		$micro = explode(' ',$micro);
@@ -57,7 +60,7 @@ Class Class_Performance
     {
         $performance = Class_Config::get('performance');
 	    if($performance == 1){ 
-            self::$_micro = self::_getMicroTime();
+            self::$_micro = self::getMicroTime();
             self::$_memory = round(memory_get_usage() / 1024,1) - self::$_startMemory;
             
             self::$_controller = Class_FrontController::getController();

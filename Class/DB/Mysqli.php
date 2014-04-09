@@ -39,10 +39,20 @@ class Class_DB_Mysqli
         if(!isset(self::$_singleInstancia[$nameDataBase][$userDataBase]) || $newInstance == TRUE){
             self::$_singleInstancia[$nameDataBase][$userDataBase] = new mysqli($urlServer, $userDataBase, $passwordUserDataBase, $nameDataBase, $portServerDataBase);
 	}
-	
+	if (self::$_singleInstancia[$nameDataBase][$userDataBase]->connect_errno) {
+            throw new Exception(self::error('Failed to connect to MySQL', self::$_singleInstancia[$nameDataBase][$userDataBase]));
+        }
         return self::$_singleInstancia[$nameDataBase][$userDataBase];
         
                 
+    }
+    
+    public static function error($sql, $mysqli){
+        //$numberError = $mysqli->errno;
+        $stringError = 'Error Query';
+	$stringError .= '<br/><b>SQL:</b>' . $sql;
+        $stringError .= '<br/><b>Error SQL:</b>' . $mysqli->error;
+        return $stringError;
     }
     
    
