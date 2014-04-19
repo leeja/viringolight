@@ -24,6 +24,17 @@ class Class_Security
         
     }
     
+    public static function post()
+    {
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+               return true;
+        header("HTTP/1.0 405 Method Now Allowed");
+    }
     
+    public static function get(){
+        if($_SERVER['REQUEST_METHOD'] == 'GET')
+               return true;
+        header("HTTP/1.0 405 Method Now Allowed");;
+    }
     
 }
