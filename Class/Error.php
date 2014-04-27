@@ -180,7 +180,7 @@ class Class_Error
                 } 
                     
                 if ($typeError == E_ERROR or $typeError == E_WARNING or $typeError == E_PARSE)
-                   die(Class_Error_Language::get('error'));
+                   die(" ");
                     
                 
 		}
