@@ -64,7 +64,7 @@ public function __construct()
 	   $action = $_GET['action'];
     
        
-     if (isset($controller) && isset($action) ){
+     if (isset($controller) && isset($action) ){      
        	self::$_controller = $controller;
        	self::$_action = $action;
         
@@ -92,6 +92,12 @@ public function __construct()
         }
    }
 
+    if(self::$_controller == 'browserconfig.xml' || self::$_controller == '?fb_locale=es_ES' || self::$_controller == '?fb_locale=es_LA' || 
+       self::$_controller == '?04ec7870?fcce6c38' || self::$_controller == '?fb_locale=nl_NL' || self::$_controller == '?fb_locale=de_DE' ||
+       self::$_controller == '?fb_locale=it_IT' || self::$_controller == 'wp-login.php'){
+        header("HTTP/1.0 404 Not Found");
+        die("");
+    }
 }
 
     /**
@@ -153,7 +159,7 @@ public function __construct()
      */
     public function route()
     {
-       $controller =  'Application_Controllers_'. self::$_controller .'Controller';
+       $controller =  'Application_Controllers_'. ucfirst(self::$_controller) .'Controller';
 	   $action = self::$_action . 'Action';
        return new $controller($action);
        
