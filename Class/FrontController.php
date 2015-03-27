@@ -161,8 +161,19 @@ public function __construct()
     public function route()
     {
        $controller =  'Application_Controllers_'. ucfirst(self::$_controller) .'Controller';
+
        $action = self::$_action . 'Action';
-       return new $controller($action);
-       
+      if(class_exists($controller, true)){
+           return new $controller($action);
+      }
+       else{
+            self::$_controller = 'Index';
+            $controller = 'Application_Controllers_IndexController';
+            self::$_action = '404';
+            $action = '404Action';
+            
+           return new $controller($action); 
+       }
+        
     }
 }

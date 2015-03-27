@@ -78,7 +78,22 @@ function viringoAutoload($className)
     else{
         
     	$include = str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
-    		require_once ($include);
+        
+        $include = Class_Config::get('pathServer'). "public_html" . DIRECTORY_SEPARATOR.$include;
+        
+        if(file_exists($include))
+    		  require_once ($include);
+        else{
+
+            //header("HTTP/1.0 404 Not Found");
+            $error404 = 'Application_Controllers_IndexController';
+            $include = str_replace('_', DIRECTORY_SEPARATOR, $error404) . '.php';
+            $error404 = Class_Config::get('pathServer'). "public_html" . DIRECTORY_SEPARATOR.$include;
+            
+            require_once($error404);
+          //header("HTTP/1.0 405 Method Now Allowed");
+            
+        }
 
   }
 }
